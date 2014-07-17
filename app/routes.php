@@ -1,15 +1,7 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
+
+use Faker\Factory as Faker;
 
 Route::get('/', function()
 {
@@ -21,22 +13,71 @@ Route::get('/test', function()
 	echo 'test hello route';
 });
 
-Route::get('/Lorem', function()
+// Page1..........Lorem ipsum 
+Route::get('Lorem', function()
 {
-	return View::make('Lorem');
+  return View::make('Lorem')->with(array('input' => [],'lorem' => []));
 });
 
-Route::post('/Lorem', function()
-{	
-	return View::make('LoremResult');
+
+Route::post('Lorem', function()
+{
+  $input = Input::all();
+  $generator = new Badcow\LoremIpsum\Generator();
+  $lorem = $generator->getParagraphs($input['num_paragraphs']);
+  $View = View::make('Lorem')
+  		->with(array('input' => $input,'lorem' => $lorem));
+  return $View;
 });
 
-Route::get('/User', function()
+
+// Page2...........User
+
+// user generator
+Route::get('user_generator', function()
 {
-	return View::make('User');
+  return View::make('user_generator')->with(array('input' => [],
+                                                  'users' => []));
 });
 
-Route::post('/User', function()
+
+Route::post('user_generator', function()
 {
-	return View::make('UserResult');
+  $input = Input::all();
+  $faker = Faker::create();
+  $users = [];
+  for ($i=0; $i<$input['num_users']; $i++) {
+    $users[$i] = array('name' => $faker->name);
+  }
+  return View::make('user_generator')->with(array('input' => $input,
+                                                  'users' => $users));
 });
+
+
+
+// Route::get('User', function()
+// {
+//   return View::make('User')->with(array('input' => [],'user' => []));
+// });
+
+
+// Route::post('User', function()
+// {
+//   $input = Input::all();
+//   $generator = new LoremIpsum();
+//   $user = $generator->getUsers($input['num_users']);
+//   return View::make('User')->with(array('input' => $input,
+//                                           'user' => $user));
+// });
+
+// Route::post('User', function()
+// {
+//   $input = Input::all();
+//   $faker = Faker::create();
+//   $users = [];
+//   for ($i=0; $i<$input['num_users']; $i++) {
+//     $users[$i] = array('name' => $faker->name, 'address' => $faker->address);
+//   }
+//   return View::make('User')->with(array('input' => $input,
+//                                                   'users' => $users));
+// });

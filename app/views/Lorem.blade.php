@@ -1,17 +1,27 @@
 @extends('_master')
-
 @section('content')
 
-	<h1>Lorem Generator</h1>
+	<h1>Ipsum Lorem Generator</h1>
+	
+<!-- step 1 : get input from form -->
 
+   {{ Form::open() }}
+        <label for="num_paragraphs">
+          <span>Please enter number of paragraphs you would like to generate</span>
+          <input type="number" id="num_paragraphs" name="num_paragraphs" 
+       		@if (key_exists('num_paragraphs', $input)) value="{{{ $input['num_paragraphs'] }}}" @endif>
+        </label>
+    	<button type="submit">Show me now!</button>
+    {{ Form::close() }}
 
 <br />
 
-{{ Form::open() }}
-{{ Form::label("num-paragraphs", "Please enter number of paragraphs you like to see")}}
-{{ Form::text("num_paragraphs") }}<br/>
-{{ Form::submit("submit") }}
-{{ Form::close() }}
+<!-- step 2 : return result  -->
 
-<br />
+  @foreach ($lorem as $paragraph)
+    <p>{{ $paragraph }}</p>
+  @endforeach
+
+
+
 @stop

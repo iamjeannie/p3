@@ -15,3 +15,28 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::get('/test', function()
+{
+	echo 'test hello route';
+});
+
+Route::get('/Lorem', function()
+{
+	return View::make('LoremInput');
+});
+
+Route::post('/Lorem', function()
+{	
+	return View::make('LoremResult');
+});
+
+Route::get('/User', function()
+{
+	return View::make('UserInput');
+});
+
+Route::post('/User', function()
+{
+	return View::make('UserResult');
+});

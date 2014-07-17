@@ -23,7 +23,7 @@ Route::get('/test', function()
 
 Route::get('/Lorem', function()
 {
-	return View::make('LoremInput');
+	return View::make('Lorem');
 });
 
 Route::post('/Lorem', function()
@@ -33,7 +33,7 @@ Route::post('/Lorem', function()
 
 Route::get('/User', function()
 {
-	return View::make('UserInput');
+	return View::make('User');
 });
 
 Route::post('/User', function()

@@ -34,50 +34,22 @@ Route::post('Lorem', function()
 // Page2...........User
 
 // user generator
-Route::get('user_generator', function()
+Route::get('User', function()
 {
-  return View::make('user_generator')->with(array('input' => [],
+  return View::make('User')->with(array('input' => [],
                                                   'users' => []));
 });
 
 
-Route::post('user_generator', function()
+Route::post('User', function()
 {
   $input = Input::all();
-  $faker = Faker::create();
+  $fk = Faker::create();
   $users = [];
   for ($i=0; $i<$input['num_users']; $i++) {
-    $users[$i] = array('name' => $faker->name);
+    $users[$i] = array('name' => $fk->name);
   }
-  return View::make('user_generator')->with(array('input' => $input,
-                                                  'users' => $users));
+  $View = View::make('User')->with(array('input' => $input,'users' => $users));
+  return $View;
 });
 
-
-
-// Route::get('User', function()
-// {
-//   return View::make('User')->with(array('input' => [],'user' => []));
-// });
-
-
-// Route::post('User', function()
-// {
-//   $input = Input::all();
-//   $generator = new LoremIpsum();
-//   $user = $generator->getUsers($input['num_users']);
-//   return View::make('User')->with(array('input' => $input,
-//                                           'user' => $user));
-// });
-
-// Route::post('User', function()
-// {
-//   $input = Input::all();
-//   $faker = Faker::create();
-//   $users = [];
-//   for ($i=0; $i<$input['num_users']; $i++) {
-//     $users[$i] = array('name' => $faker->name, 'address' => $faker->address);
-//   }
-//   return View::make('User')->with(array('input' => $input,
-//                                                   'users' => $users));
-// });
